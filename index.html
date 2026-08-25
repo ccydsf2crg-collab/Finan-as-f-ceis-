@@ -63,7 +63,7 @@ $("rate").value=S.rate;$("rate").oninput=e=>{let n=Number(e.target.value);if(n>0
 $("search").oninput=e=>{let q=e.target.value.toLowerCase();document.querySelectorAll("#rows .row").forEach(r=>r.style.display=r.innerText.toLowerCase().includes(q)?"flex":"none")};
 $("goalAdd").onclick=()=>$("goalModal").classList.remove("hidden");$("gCancel").onclick=()=>$("goalModal").classList.add("hidden");$("goalForm").onsubmit=e=>{e.preventDefault();let target=Number($("gTarget").value),saved=Number($("gSaved").value)||0;if(!$("gName").value.trim()||!target)return;S.goals.push({name:$("gName").value.trim(),target,saved,currency:$("gCurrency").value});save();render();$("goalModal").classList.add("hidden");status("Meta criada!")};
 if("serviceWorker" in navigator) window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
-render();
+alert("O JavaScript está funcionando!";
 </script>
 </body>
 </html>
