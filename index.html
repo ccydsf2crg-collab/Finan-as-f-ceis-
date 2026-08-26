@@ -9,61 +9,697 @@
 <meta name="apple-mobile-web-app-title" content="Finanças Fáceis">
 <link rel="manifest" href="manifest.json">
 <title>Finanças Fáceis</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f4f5f7;color:#17181b;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-main{max-width:620px;margin:auto;padding:16px 14px 34px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.brand{font-size:24px;font-weight:850}.muted{font-size:12px;color:#737780}
-nav{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:12px}button{min-height:44px;border:0;border-radius:12px;font:inherit;font-weight:750;background:#e9ebee;color:#17181b}nav button{font-size:11px}button.active,.primary{background:#111318;color:#fff}.primary{width:100%;font-size:16px;margin:10px 0}
-.card,.row{background:#fff;border:1px solid #e0e2e6;border-radius:17px}.card{padding:16px;margin-bottom:10px}.balance{font-size:34px;font-weight:900;margin:4px 0 10px}.switch,.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.stat{padding:14px;border-radius:15px;background:#fff;border:1px solid #e0e2e6}.num{font-size:19px;font-weight:850;margin-top:4px}.green{color:#147a4f}.red{color:#b42318}
-.row{padding:13px;margin:8px 0;display:flex;justify-content:space-between;gap:10px}.desc{font-weight:800}.meta{font-size:11px;color:#737780;margin-top:3px}.amt{font-weight:850;white-space:nowrap}.actions{margin-top:7px;display:flex;gap:6px}.actions button{min-height:34px;padding:5px 9px;font-size:11px}.danger{background:#fbeaea;color:#a61b1b}
-.field{margin:10px 0}.field label{display:block;font-size:12px;font-weight:750;margin-bottom:5px}.field input,.field select{width:100%;padding:12px;border:1px solid #d3d6db;border-radius:11px;background:white;font-size:16px}.hidden{display:none!important}.modal{position:fixed;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:flex-end;justify-content:center;padding:0}.sheet{background:white;width:100%;max-width:620px;border-radius:22px 22px 0 0;padding:18px;max-height:92vh;overflow:auto}.sheet-actions{display:flex;gap:8px}.sheet-actions button{flex:1}.bar{height:9px;background:#e7e9ec;border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:#111318}.status{padding:9px;background:#eef7f1;color:#17633f;border-radius:10px;font-size:12px;margin-bottom:10px}
+*{box-sizing:border-box}
+body{margin:0;background:#f4f5f7;color:#17181b;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:620px;margin:auto;padding:16px 14px 34px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.brand{font-size:24px;font-weight:850}
+.muted{font-size:12px;color:#737780}
+nav{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px}
+button{min-height:44px;border:0;border-radius:12px;font:inherit;font-weight:750;background:#e9ebee;color:#17181b}
+nav button{font-size:11px}
+button.active,.primary{background:#111318;color:#fff}
+.primary{width:100%;font-size:16px;margin:10px 0}
+.card,.row{background:#fff;border:1px solid #e0e2e6;border-radius:17px}
+.card{padding:16px;margin-bottom:10px}
+.balance{font-size:34px;font-weight:900;margin:4px 0 10px}
+.switch,.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat{padding:14px;border-radius:15px;background:#fff;border:1px solid #e0e2e6}
+.num{font-size:19px;font-weight:850;margin-top:4px}
+.green{color:#147a4f}
+.red{color:#b42318}
+.row{padding:13px;margin:8px 0;display:flex;justify-content:space-between;gap:10px}
+.desc{font-weight:800}
+.meta{font-size:11px;color:#737780;margin-top:3px}
+.amt{font-weight:850;white-space:nowrap}
+.actions{margin-top:7px;display:flex;gap:6px}
+.actions button{min-height:34px;padding:5px 9px;font-size:11px}
+.danger{background:#fbeaea;color:#a61b1b}
+.field{margin:10px 0}
+.field label{display:block;font-size:12px;font-weight:750;margin-bottom:5px}
+.field input,.field select{width:100%;padding:12px;border:1px solid #d3d6db;border-radius:11px;background:white;font-size:16px}
+.hidden{display:none!important}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:flex-end;justify-content:center;padding:0}
+.sheet{background:white;width:100%;max-width:620px;border-radius:22px 22px 0 0;padding:18px;max-height:92vh;overflow:auto}
+.sheet-actions{display:flex;gap:8px}
+.sheet-actions button{flex:1}
+.status{padding:9px;background:#eef7f1;color:#17633f;border-radius:10px;font-size:12px;margin-bottom:10px}
 </style>
 </head>
+
 <body>
 <main>
-<header class="top"><div><div class="brand">Finanças Fáceis</div><div class="muted">Seu dinheiro, de um jeito simples.</div></div><div style="font-size:26px">💰</div></header>
-<nav><button class="active" data-page="home">🏠<br>Início</button><button data-page="list">📋<br>Lançamentos</button><button data-page="reports">📊<br>Relatórios</button><button data-page="goals">🎯<br>Metas</button><button data-page="settings">⚙️<br>Ajustes</button></nav>
+
+<header class="top">
+<div>
+<div class="brand">Finanças Fáceis</div>
+<div class="muted">Seu dinheiro, de um jeito simples.</div>
+</div>
+<div style="font-size:26px">💰</div>
+</header>
+
+<nav>
+<button class="active" data-page="home">🏠<br>Início</button>
+<button data-page="list">📋<br>Lançamentos</button>
+<button data-page="reports">📊<br>Relatórios</button>
+<button data-page="settings">⚙️<br>Ajustes</button>
+</nav>
+
 <div id="status" class="status hidden"></div>
 
 <section id="home">
-<div class="card"><div class="muted">Saldo total</div><div id="balance" class="balance">€ 0,00</div><div class="switch"><button id="eur" class="active">€ Euro</button><button id="brl">R$ Real</button></div></div>
-<div class="grid"><div class="stat"><div class="muted">Entradas</div><div id="income" class="num green">€0,00</div></div><div class="stat"><div class="muted">Despesas</div><div id="expense" class="num red">€0,00</div></div></div>
-<button id="add" class="primary">＋ Novo lançamento</button><h3>Últimos lançamentos</h3><div id="homeRows"></div>
+
+<div class="card">
+<div class="muted">Saldo total</div>
+<div id="balance" class="balance">€ 0,00</div>
+
+<div class="switch">
+<button id="eur" class="active">€ Euro</button>
+<button id="brl">R$ Real</button>
+</div>
+</div>
+
+<div class="grid">
+
+<div class="stat">
+<div class="muted">Entradas</div>
+<div id="income" class="num green">€0,00</div>
+</div>
+
+<div class="stat">
+<div class="muted">Despesas</div>
+<div id="expense" class="num red">€0,00</div>
+</div>
+
+</div>
+
+<button id="add" class="primary">＋ Novo lançamento</button>
+
+<h3>Últimos lançamentos</h3>
+<div id="homeRows"></div>
+
 </section>
 
-<section id="list" class="hidden"><button id="add2" class="primary">＋ Novo lançamento</button><div class="field"><input id="search" placeholder="Buscar lançamento"></div><div id="rows"></div></section>
-<section id="reports" class="hidden"><div class="grid"><div class="stat"><div class="muted">Entradas</div><div id="rIn" class="num green"></div></div><div class="stat"><div class="muted">Despesas</div><div id="rOut" class="num red"></div></div></div><h3>Gastos por categoria</h3><div id="cats"></div></section>
-<section id="goals" class="hidden"><button id="goalAdd" class="primary">＋ Nova meta</button><div id="goals"></div></section>
-<section id="settings" class="hidden"><div class="card"><div class="field"><label>Moeda principal</label><select id="mainCurrency"><option value="EUR">€ Euro</option><option value="BRL">R$ Real</option></select></div><div class="field"><label>Cotação: €1 = R$</label><input id="rate" type="number" min="0.01" step="0.01" value="6.20"></div><div class="field"><label>Idioma</label><select><option>🇧🇷 Português</option><option>🇬🇧 English</option><option>🇪🇸 Español</option><option>🇫🇷 Français</option><option>🇩🇪 Deutsch</option></select></div><p class="muted">Os dados ficam salvos localmente no navegador. A versão publicada poderá receber sincronização e backup em nuvem.</p></div></section>
+
+<section id="list" class="hidden">
+
+<button id="add2" class="primary">＋ Novo lançamento</button>
+
+<div class="field">
+<input id="search" placeholder="Buscar lançamento">
+</div>
+
+<div id="rows"></div>
+
+</section>
+
+
+<section id="reports" class="hidden">
+
+<div class="grid">
+
+<div class="stat">
+<div class="muted">Entradas</div>
+<div id="rIn" class="num green"></div>
+</div>
+
+<div class="stat">
+<div class="muted">Despesas</div>
+<div id="rOut" class="num red"></div>
+</div>
+
+</div>
+
+<h3>Gastos por categoria</h3>
+
+<div id="cats"></div>
+
+</section>
+
+
+<section id="settings" class="hidden">
+
+<div class="card">
+
+<div class="field">
+<label>Moeda principal</label>
+
+<select id="mainCurrency">
+<option value="EUR">€ Euro</option>
+<option value="BRL">R$ Real</option>
+</select>
+</div>
+
+
+<div class="field">
+<label>Cotação: €1 = R$</label>
+
+<input id="rate" type="number" min="0.01" step="0.01" value="6.20">
+</div>
+
+
+<div class="field">
+<label>Idioma</label>
+
+<select>
+<option>🇧🇷 Português</option>
+<option>🇬🇧 English</option>
+<option>🇪🇸 Español</option>
+<option>🇫🇷 Français</option>
+<option>🇩🇪 Deutsch</option>
+</select>
+</div>
+
+<p class="muted">
+Os dados ficam salvos localmente no navegador.
+A versão publicada poderá receber sincronização e backup em nuvem.
+</p>
+
+</div>
+
+</section>
+
 </main>
 
-<div id="modal" class="modal hidden"><div class="sheet"><h2 id="formTitle">Novo lançamento</h2><form id="form"><div class="field"><label>Tipo</label><select id="type"><option value="expense">Despesa</option><option value="income">Entrada</option></select></div><div class="field"><label>Valor</label><input id="amount" type="number" min="0.01" step="0.01" required></div><div class="field"><label>Moeda</label><select id="currency"><option value="EUR">€ Euro</option><option value="BRL">R$ Real</option></select></div><div class="field"><label>Descrição</label><input id="desc" required placeholder="Ex.: Mercado"></div><div class="field"><label>Categoria</label><input id="cat" list="catsList" required placeholder="Ex.: Alimentação"><datalist id="catsList"><option>Renda</option><option>Alimentação</option><option>Casa</option><option>Carro</option><option>Contas</option><option>Lazer</option><option>Compras</option><option>Investimentos</option><option>Outros</option></datalist></div><div class="field"><label>Data</label><input id="date" type="date" required></div><div class="sheet-actions"><button type="button" id="cancel">Cancelar</button><button type="submit" class="active">Salvar</button></div></form></div></div>
 
-<div id="goalModal" class="modal hidden"><div class="sheet"><h2>Nova meta</h2><form id="goalForm"><div class="field"><label>Nome</label><input id="gName" required placeholder="Reserva de emergência"></div><div class="field"><label>Objetivo</label><input id="gTarget" type="number" min="0.01" step="0.01" required></div><div class="field"><label>Moeda</label><select id="gCurrency"><option value="EUR">€ Euro</option><option value="BRL">R$ Real</option></select></div><div class="field"><label>Já guardado</label><input id="gSaved" type="number" min="0" step="0.01" value="0"></div><div class="sheet-actions"><button type="button" id="gCancel">Cancelar</button><button type="submit" class="active">Criar meta</button></div></form></div></div>
+<div id="modal" class="modal hidden">
+
+<div class="sheet">
+
+<h2 id="formTitle">Novo lançamento</h2>
+
+<form id="form">
+
+<div class="field">
+<label>Tipo</label>
+
+<select id="type">
+<option value="expense">Despesa</option>
+<option value="income">Entrada</option>
+</select>
+</div>
+
+
+<div class="field">
+<label>Valor</label>
+
+<input id="amount" type="number" min="0.01" step="0.01" required>
+</div>
+
+
+<div class="field">
+<label>Moeda</label>
+
+<select id="currency">
+<option value="EUR">€ Euro</option>
+<option value="BRL">R$ Real</option>
+</select>
+</div>
+
+
+<div class="field">
+<label>Descrição</label>
+
+<input id="desc" required placeholder="Ex.: Mercado">
+</div>
+
+
+<div class="field">
+<label>Categoria</label>
+
+<input id="cat" list="catsList" required placeholder="Ex.: Alimentação">
+
+<datalist id="catsList">
+<option>Renda</option>
+<option>Alimentação</option>
+<option>Casa</option>
+<option>Carro</option>
+<option>Contas</option>
+<option>Lazer</option>
+<option>Compras</option>
+<option>Investimentos</option>
+<option>Outros</option>
+</datalist>
+
+</div>
+
+
+<div class="field">
+<label>Data</label>
+
+<input id="date" type="date" required>
+</div>
+
+
+<div class="sheet-actions">
+
+<button type="button" id="cancel">
+Cancelar
+</button>
+
+<button type="submit" class="active">
+Salvar
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
 
 <script>
-const KEY="ff-pwa-v1";let S={rate:6.2,display:"EUR",tx:[],goals:[],edit:null};
+
+const KEY="ff-pwa-v1";
+
+let S={
+rate:6.2,
+display:"EUR",
+tx:[],
+edit:null
+};
+
 const $=x=>document.getElementById(x);
-try{const x=JSON.parse(localStorage.getItem(KEY)||"null");if(x)S=Object.assign(S,x)}catch(e){}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
-function cv(v,c){return c===S.display?v:S.display==="EUR"?v/S.rate:v*S.rate}
-function money(v,c){return new Intl.NumberFormat(c==="EUR"?"pt-PT":"pt-BR",{style:"currency",currency:c}).format(v)}
-function totals(){let i=0,o=0;S.tx.forEach(x=>x.type==="income"?i+=cv(x.amount,x.currency):o+=cv(x.amount,x.currency));return[i,o,i-o]}
-function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
-function status(t){$("status").textContent=t;$("status").classList.remove("hidden");setTimeout(()=>$("status").classList.add("hidden"),1500)}
-function row(x,i,buttons=true){return `<div class="row"><div><div class="desc">${esc(x.desc)}</div><div class="meta">${esc(x.cat)} · ${x.date} · ${x.currency==="EUR"?"Euro":"Real"}</div>${buttons?`<div class="actions"><button data-edit="${i}">✏️ Editar</button><button class="danger" data-del="${i}">🗑️ Excluir</button></div>`:""}</div><div class="amt ${x.type==="income"?"green":"red"}">${x.type==="income"?"+":"−"} ${money(x.amount,x.currency)}</div></div>`}
-function render(){const [i,o,b]=totals();$("balance").textContent=money(b,S.display);$("income").textContent=money(i,S.display);$("expense").textContent=money(o,S.display);$("rIn").textContent=money(i,S.display);$("rOut").textContent=money(o,S.display);$("homeRows").innerHTML=S.tx.slice(-4).reverse().map(x=>row(x,S.tx.indexOf(x),false)).join("")||'<div class="card">Nenhum lançamento ainda.</div>';$("rows").innerHTML=S.tx.slice().reverse().map(x=>row(x,S.tx.indexOf(x))).join("")||'<div class="card">Nenhum lançamento ainda.</div>';let m={};S.tx.filter(x=>x.type==="expense").forEach(x=>m[x.cat]=(m[x.cat]||0)+cv(x.amount,x.currency));$("cats").innerHTML=Object.entries(m).map(x=>`<div class="card"><b>${esc(x[0])}</b><span style="float:right">${money(x[1],S.display)}</span></div>`).join("")||'<div class="card">Sem despesas.</div>';$("goals").innerHTML=S.goals.map((g,i)=>{const p=Math.min(1,g.saved/g.target);return `<div class="card"><b>${esc(g.name)}</b><div class="muted">${money(g.saved,g.currency)} de ${money(g.target,g.currency)}</div><div class="bar" style="margin:8px 0"><i style="width:${p*100}%"></i></div><div class="muted">${(p*100).toFixed(0)}% concluído</div><button class="danger" data-gdel="${i}" style="margin-top:8px">Excluir</button></div>`}).join("")||'<div class="card">Crie sua primeira meta.</div>'}
-function openForm(i=null){S.edit=i;$("formTitle").textContent=i==null?"Novo lançamento":"Editar lançamento";$("form").reset();$("date").value=new Date().toISOString().slice(0,10);if(i!=null){let x=S.tx[i];$("type").value=x.type;$("amount").value=x.amount;$("currency").value=x.currency;$("desc").value=x.desc;$("cat").value=x.cat;$("date").value=x.date}$("modal").classList.remove("hidden")}
-document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));b.classList.add("active");["home","list","reports","goals","settings"].forEach(id=>$(id).classList.add("hidden"));$(b.dataset.page).classList.remove("hidden")});
-$("add").onclick=()=>openForm();$("add2").onclick=()=>openForm();$("cancel").onclick=()=>$("modal").classList.add("hidden");
-$("form").onsubmit=e=>{e.preventDefault();const x={type:$("type").value,amount:Number($("amount").value),currency:$("currency").value,desc:$("desc").value.trim(),cat:$("cat").value.trim(),date:$("date").value};if(!x.amount||!x.desc||!x.cat)return;S.edit==null?S.tx.push(x):S.tx[S.edit]=x;save();render();$("modal").classList.add("hidden");status("Lançamento salvo!")};
-$("rows").onclick=e=>{let a=e.target.closest("[data-edit]"),d=e.target.closest("[data-del]");if(a)openForm(+a.dataset.edit);if(d&&confirm("Excluir lançamento?")){S.tx.splice(+d.dataset.del,1);save();render();status("Lançamento excluído.")}};
-$("goals").onclick=e=>{let d=e.target.closest("[data-gdel]");if(d){S.goals.splice(+d.dataset.gdel,1);save();render()}};
-$("eur").onclick=()=>{S.display="EUR";$("eur").classList.add("active");$("brl").classList.remove("active");save();render()};$("brl").onclick=()=>{S.display="BRL";$("brl").classList.add("active");$("eur").classList.remove("active");save();render()};
-$("rate").value=S.rate;$("rate").oninput=e=>{let n=Number(e.target.value);if(n>0){S.rate=n;save();render()}};$("mainCurrency").value=S.display;$("mainCurrency").onchange=e=>{S.display=e.target.value;$("eur").classList.toggle("active",S.display==="EUR");$("brl").classList.toggle("active",S.display==="BRL");save();render()};
-$("search").oninput=e=>{let q=e.target.value.toLowerCase();document.querySelectorAll("#rows .row").forEach(r=>r.style.display=r.innerText.toLowerCase().includes(q)?"flex":"none")};
-$("goalAdd").onclick=()=>$("goalModal").classList.remove("hidden");$("gCancel").onclick=()=>$("goalModal").classList.add("hidden");$("goalForm").onsubmit=e=>{e.preventDefault();let target=Number($("gTarget").value),saved=Number($("gSaved").value)||0;if(!$("gName").value.trim()||!target)return;S.goals.push({name:$("gName").value.trim(),target,saved,currency:$("gCurrency").value});save();render();$("#goalModal").classList.add("hidden");status("Meta criada!")};
-if("serviceWorker" in navigator) window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
-alert("O JavaScript está funcionando!");
+
+try{
+const x=JSON.parse(localStorage.getItem(KEY)||"null");
+
+if(x){
+S=Object.assign(S,x);
+}
+
+}catch(e){}
+
+
+function save(){
+
+try{
+localStorage.setItem(KEY,JSON.stringify(S));
+}catch(e){}
+
+}
+
+
+function cv(v,c){
+
+return c===S.display
+?v
+:S.display==="EUR"
+?v/S.rate
+:v*S.rate;
+
+}
+
+
+function money(v,c){
+
+return new Intl.NumberFormat(
+c==="EUR"?"pt-PT":"pt-BR",
+{
+style:"currency",
+currency:c
+}
+).format(v);
+
+}
+
+
+function totals(){
+
+let i=0,o=0;
+
+S.tx.forEach(x=>
+x.type==="income"
+?i+=cv(x.amount,x.currency)
+:o+=cv(x.amount,x.currency)
+);
+
+return[i,o,i-o];
+
+}
+
+
+function esc(s){
+
+return String(s).replace(
+/[&<>"']/g,
+m=>({
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#39;"
+}[m])
+);
+
+}
+
+
+function status(t){
+
+$("status").textContent=t;
+
+$("status").classList.remove("hidden");
+
+setTimeout(()=>
+$("status").classList.add("hidden"),
+1500
+);
+
+}
+
+
+function row(x,i,buttons=true){
+
+return `
+<div class="row">
+
+<div>
+
+<div class="desc">
+${esc(x.desc)}
+</div>
+
+<div class="meta">
+${esc(x.cat)} · ${x.date} · ${x.currency==="EUR"?"Euro":"Real"}
+</div>
+
+${buttons?`
+<div class="actions">
+
+<button data-edit="${i}">
+✏️ Editar
+</button>
+
+<button class="danger" data-del="${i}">
+🗑️ Excluir
+</button>
+
+</div>
+`:""}
+
+</div>
+
+<div class="amt ${x.type==="income"?"green":"red"}">
+
+${x.type==="income"?"+":"−"}
+${money(x.amount,x.currency)}
+
+</div>
+
+</div>
+`;
+
+}
+
+
+function render(){
+
+const [i,o,b]=totals();
+
+$("balance").textContent=money(b,S.display);
+
+$("income").textContent=money(i,S.display);
+
+$("expense").textContent=money(o,S.display);
+
+$("rIn").textContent=money(i,S.display);
+
+$("rOut").textContent=money(o,S.display);
+
+
+$("homeRows").innerHTML=
+S.tx
+.slice(-4)
+.reverse()
+.map(x=>row(x,S.tx.indexOf(x),false))
+.join("")
+||
+'<div class="card">Nenhum lançamento ainda.</div>';
+
+
+$("rows").innerHTML=
+S.tx
+.slice()
+.reverse()
+.map(x=>row(x,S.tx.indexOf(x)))
+.join("")
+||
+'<div class="card">Nenhum lançamento ainda.</div>';
+
+
+let m={};
+
+S.tx
+.filter(x=>x.type==="expense")
+.forEach(x=>
+m[x.cat]=(m[x.cat]||0)+cv(x.amount,x.currency)
+);
+
+
+$("cats").innerHTML=
+Object.entries(m)
+.map(x=>`
+<div class="card">
+<b>${esc(x[0])}</b>
+<span style="float:right">
+${money(x[1],S.display)}
+</span>
+</div>
+`)
+.join("")
+||
+'<div class="card">Sem despesas.</div>';
+
+}
+
+
+function openForm(i=null){
+
+S.edit=i;
+
+$("formTitle").textContent=
+i==null
+?"Novo lançamento"
+:"Editar lançamento";
+
+$("form").reset();
+
+$("date").value=
+new Date().toISOString().slice(0,10);
+
+
+if(i!=null){
+
+let x=S.tx[i];
+
+$("type").value=x.type;
+$("amount").value=x.amount;
+$("currency").value=x.currency;
+$("desc").value=x.desc;
+$("cat").value=x.cat;
+$("date").value=x.date;
+
+}
+
+$("modal").classList.remove("hidden");
+
+}
+
+
+document
+.querySelectorAll("nav button")
+.forEach(b=>
+b.onclick=()=>{
+
+document
+.querySelectorAll("nav button")
+.forEach(x=>
+x.classList.remove("active")
+);
+
+b.classList.add("active");
+
+["home","list","reports","settings"]
+.forEach(id=>
+$(id).classList.add("hidden")
+);
+
+$(b.dataset.page).classList.remove("hidden");
+
+});
+
+
+$("add").onclick=()=>openForm();
+
+$("add2").onclick=()=>openForm();
+
+$("cancel").onclick=()=>
+$("modal").classList.add("hidden");
+
+
+$("form").onsubmit=e=>{
+
+e.preventDefault();
+
+const x={
+type:$("type").value,
+amount:Number($("amount").value),
+currency:$("currency").value,
+desc:$("desc").value.trim(),
+cat:$("cat").value.trim(),
+date:$("date").value
+};
+
+if(!x.amount||!x.desc||!x.cat)return;
+
+S.edit==null
+?S.tx.push(x)
+:S.tx[S.edit]=x;
+
+save();
+
+render();
+
+$("modal").classList.add("hidden");
+
+status("Lançamento salvo!");
+
+};
+
+
+$("rows").onclick=e=>{
+
+let a=e.target.closest("[data-edit]");
+
+let d=e.target.closest("[data-del]");
+
+if(a)
+openForm(+a.dataset.edit);
+
+if(
+d&&
+confirm("Excluir lançamento?")
+){
+
+S.tx.splice(+d.dataset.del,1);
+
+save();
+
+render();
+
+status("Lançamento excluído.");
+
+}
+
+};
+
+
+$("eur").onclick=()=>{
+
+S.display="EUR";
+
+$("eur").classList.add("active");
+
+$("brl").classList.remove("active");
+
+save();
+
+render();
+
+};
+
+
+$("brl").onclick=()=>{
+
+S.display="BRL";
+
+$("brl").classList.add("active");
+
+$("eur").classList.remove("active");
+
+save();
+
+render();
+
+};
+
+
+$("rate").value=S.rate;
+
+
+$("rate").oninput=e=>{
+
+let n=Number(e.target.value);
+
+if(n>0){
+
+S.rate=n;
+
+save();
+
+render();
+
+}
+
+};
+
+
+$("mainCurrency").value=S.display;
+
+
+$("mainCurrency").onchange=e=>{
+
+S.display=e.target.value;
+
+$("eur").classList.toggle(
+"active",
+S.display==="EUR"
+);
+
+$("brl").classList.toggle(
+"active",
+S.display==="BRL"
+);
+
+save();
+
+render();
+
+};
+
+
+$("search").oninput=e=>{
+
+let q=e.target.value.toLowerCase();
+
+document
+.querySelectorAll("#rows .row")
+.forEach(r=>
+r.style.display=
+r.innerText.toLowerCase().includes(q)
+?"flex"
+:"none"
+);
+
+};
+
+
+if("serviceWorker" in navigator)
+
+window.addEventListener(
+"load",
+()=>
+navigator.serviceWorker
+.register("sw.js")
+.catch(()=>{})
+);
+
 </script>
+
 </body>
 </html>
